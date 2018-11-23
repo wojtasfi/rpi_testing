@@ -1,5 +1,3 @@
-import urllib
-
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
@@ -18,16 +16,13 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         print(message)
-        print(self.connections)
         [client.write_message(message) for client in self.connections]
 
     def on_close(self):
         self.connections.remove(self)
 
+    # todo not secure
     def check_origin(self, origin):
-        parsed_origin = urllib.parse.urlparse(origin)
-        print(origin)
-        print(parsed_origin)
         return True
 
 
