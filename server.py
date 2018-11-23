@@ -1,5 +1,6 @@
 import json
 
+import RPi.GPIO as GPIO
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
@@ -13,6 +14,7 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 class SimpleWebSocket(tornado.websocket.WebSocketHandler):
+    GPIO.cleanup()
     connections = set()
 
     distance_sensor = DistanceMeasureService()
