@@ -31,7 +31,7 @@ class DistanceMeasureService:
         GPIO.output(self.TRIG, False)
 
     def measure_distance(self) -> int:
-        self.send_signal()
+        self.__send_signal()
 
         while GPIO.input(self.ECHO) == self.ECHO_LOW:
             pulse_start = time.time()
