@@ -29,7 +29,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
 
             [client.write_message(json.dumps(msg)) for client in self.connections]
 
-    [client.write_message("No command found") for client in self.connections]
+        [client.write_message("No command found") for client in self.connections]
 
 
 def on_close(self):
