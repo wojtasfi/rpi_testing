@@ -11,7 +11,7 @@ class DistanceMeasureService:
         self.ECHO_LOW = 0
         self.ECHO_HIGH = 1
         self.SOUND_SPEED_TWO_DIRECTIONS = 17150
-        self.setup_module()
+        self.__setup_module()
 
     def __setup_module(self):
         GPIO.setmode(GPIO.BCM)
