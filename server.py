@@ -1,3 +1,5 @@
+import json
+
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
@@ -22,16 +24,21 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
         print(message)
         if message == "distance":
             distance = self.distance_sensor.measure_distance()
-            [client.write_message(distance) for client in self.connections]
 
-        [client.write_message("No command found") for client in self.connections]
+            msg = {"distance": distance}
 
-    def on_close(self):
-        self.connections.remove(self)
+            [client.write_message(json.dumps(msg)) for client in self.connections]
 
-    # todo not secure
-    def check_origin(self, origin):
-        return True
+    [client.write_message("No command found") for client in self.connections]
+
+
+def on_close(self):
+    self.connections.remove(self)
+
+
+# todo not secure
+def check_origin(self, origin):
+    return True
 
 
 def make_app():
