@@ -2,6 +2,8 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket
 
+from modules.range_sensor import DistanceMeasureService
+
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -11,12 +13,18 @@ class MainHandler(tornado.web.RequestHandler):
 class SimpleWebSocket(tornado.websocket.WebSocketHandler):
     connections = set()
 
+    distance_sensor = DistanceMeasureService()
+
     def open(self):
         self.connections.add(self)
 
     def on_message(self, message):
         print(message)
-        [client.write_message(message) for client in self.connections]
+        if message == "distance":
+            distance = self.distance_sensor.measure_distance()
+            [client.write_message(distance) for client in self.connections]
+
+        [client.write_message("No command found") for client in self.connections]
 
     def on_close(self):
         self.connections.remove(self)

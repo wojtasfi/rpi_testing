@@ -2,36 +2,46 @@ import time
 
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BCM)
 
-TRIG = 23
-ECHO = 24
+class DistanceMeasureService:
 
-print("Distance Measurement In Progress")
+    def __init__(self):
+        self.TRIG = 23
+        self.ECHO = 24
+        self.ECHO_LOW = 0
+        self.ECHO_HIGH = 1
+        self.SOUND_SPEED_TWO_DIRECTIONS = 17150
+        self.setup_module()
 
-GPIO.setup(TRIG, GPIO.OUT)
-GPIO.setup(ECHO, GPIO.IN)
+    def __setup_module(self):
+        GPIO.setmode(GPIO.BCM)
 
-GPIO.output(TRIG, False)
-print("Waiting For Sensor To Settle")
-time.sleep(2)
+        print("Distance Measurement In Progress")
 
-GPIO.output(TRIG, True)
-time.sleep(0.00001)
-GPIO.output(TRIG, False)
+        GPIO.setup(self.TRIG, GPIO.OUT)
+        GPIO.setup(self.ECHO, GPIO.IN)
 
-while GPIO.input(ECHO) == 0:
-    pulse_start = time.time()
+        GPIO.output(self.TRIG, False)
+        print("Waiting For Sensor To Settle")
+        time.sleep(2)
 
-while GPIO.input(ECHO) == 1:
-    pulse_end = time.time()
+    def __send_signal(self):
+        GPIO.output(self.TRIG, True)
+        time.sleep(0.00001)
+        GPIO.output(self.TRIG, False)
 
-    pulse_duration = pulse_end - pulse_start
+    def measure_distance(self) -> int:
+        self.send_signal()
 
-    distance = pulse_duration * 17150
+        while GPIO.input(self.ECHO) == self.ECHO_LOW:
+            pulse_start = time.time()
 
-    distance = round(distance, 2)
+        while GPIO.input(self.ECHO) == self.ECHO_HIGH:
+            pulse_end = time.time()
+            pulse_duration = pulse_end - pulse_start
+            distance = pulse_duration * self.SOUND_SPEED_TWO_DIRECTIONS
+            distance = round(distance, 2)
+            print("Distance:", distance, "cm")
+            return distance
 
-    print("Distance:", distance, "cm")
-
-GPIO.cleanup()
+    # GPIO.cleanup()
