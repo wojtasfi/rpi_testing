@@ -20,6 +20,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
     distance_sensor = DistanceMeasureService()
 
     def open(self):
+        print("Connection open")
         self.connections.add(self)
 
     def on_message(self, message):
@@ -33,14 +34,13 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
 
         [client.write_message("No command found") for client in self.connections]
 
+    def on_close(self):
+        print("Connection closed")
+        self.connections.remove(self)
 
-def on_close(self):
-    self.connections.remove(self)
-
-
-# todo not secure
-def check_origin(self, origin):
-    return True
+    # todo not secure
+    def check_origin(self, origin):
+        return True
 
 
 def make_app():
