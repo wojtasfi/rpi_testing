@@ -1,12 +1,9 @@
-import json
-import time
-
 import RPi.GPIO as GPIO
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
 
-from modules.range_sensor import DistanceMeasureService
+from handlers import HandlerSupplier
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -18,36 +15,16 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
     GPIO.cleanup()
     connections = set()
 
-    distance_sensor = DistanceMeasureService()
-    distance_continuous = False
+    handlerSupplier = HandlerSupplier()
 
     def open(self):
         print("Connection open")
         self.connections.add(self)
 
+    # message = {command_name:"", command: ""}
     def on_message(self, message):
         print(message)
-        if message == "distance":
-            distance = self.distance_sensor.measure_distance()
-            msg = {"distance": distance}
-            [client.write_message(json.dumps(msg)) for client in self.connections]
-
-        elif message == "distance_continuous":
-            self.distance_continuous = True
-
-            while self.distance_continuous:
-                print("Starting measuring distance")
-                distance = self.distance_sensor.measure_distance()
-                msg = {"distance": distance}
-                [client.write_message(json.dumps(msg)) for client in self.connections]
-                time.sleep(0.02)
-
-        elif message == "distance_continuous_stop":
-            print("Stopping measuring distance")
-            self.distance_continuous = False
-
-        else:
-            [client.write_message("No command found") for client in self.connections]
+        self.handlerSupplier.handle_command(message, clients=self.connections)
 
     def on_close(self):
         print("Connection closed")
