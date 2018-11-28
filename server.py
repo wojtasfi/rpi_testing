@@ -36,12 +36,14 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
             self.distance_continuous = True
 
             while self.distance_continuous:
+                print("Starting measuring distance")
                 distance = self.distance_sensor.measure_distance()
                 msg = {"distance": distance}
                 [client.write_message(json.dumps(msg)) for client in self.connections]
                 time.sleep(0.02)
 
         elif message == "distance_continuous_stop":
+            print("Stopping measuring distance")
             self.distance_continuous = False
 
         else:
