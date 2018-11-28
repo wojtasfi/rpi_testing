@@ -1,5 +1,5 @@
-from handlers import ContinuousDistanceHandler
-from handlers import DistanceHandler
+from handlers.ContinuousDistanceHandler import ContinuousDistanceHandler
+from handlers.DistanceHandler import DistanceHandler
 
 
 class HandlersSupplier:

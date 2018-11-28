@@ -15,7 +15,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
     GPIO.cleanup()
     connections = set()
 
-    handlerSupplier = HandlerSupplier()
+    handlerSupplier = HandlerSupplier.HandlersSupplier
 
     def open(self):
         print("Connection open")

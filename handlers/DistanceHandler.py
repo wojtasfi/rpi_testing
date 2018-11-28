@@ -1,6 +1,6 @@
 import json
 
-from handlers import Handler
+from handlers.Handler import Handler
 from modules.range_sensor import DistanceMeasureService
 
 
