@@ -18,6 +18,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
     connections = set()
 
     distance_sensor = DistanceMeasureService()
+    distance_continuous = False
 
     def open(self):
         print("Connection open")
@@ -27,10 +28,19 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
         print(message)
         if message == "distance":
             distance = self.distance_sensor.measure_distance()
-
             msg = {"distance": distance}
-
             [client.write_message(json.dumps(msg)) for client in self.connections]
+
+        elif message == "distance_continuous":
+            self.distance_continuous = True
+
+            while self.distance_continuous:
+                distance = self.distance_sensor.measure_distance()
+                msg = {"distance": distance}
+                [client.write_message(json.dumps(msg)) for client in self.connections]
+
+        elif message == "distance_continuous_stop":
+            self.distance_continuous = False
 
         else:
             [client.write_message("No command found") for client in self.connections]

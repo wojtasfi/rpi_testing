@@ -24,6 +24,7 @@ class DistanceMeasureService:
         GPIO.output(self.TRIG, False)
         print("Waiting For Sensor To Settle")
         time.sleep(2)
+        print("Sensor Settled")
 
     def __send_signal(self):
         GPIO.output(self.TRIG, True)
@@ -42,9 +43,6 @@ class DistanceMeasureService:
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * self.SOUND_SPEED_TWO_DIRECTIONS
         distance = round(distance, 2)
-        print("pulse_start:", pulse_start)
-        print("pulse_end:", pulse_end)
-        print("pulse_duration:", pulse_duration)
         print("Distance:", distance, "cm")
         return distance
 
