@@ -1,4 +1,5 @@
 import json
+import time
 
 import RPi.GPIO as GPIO
 import tornado.ioloop
@@ -38,6 +39,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
                 distance = self.distance_sensor.measure_distance()
                 msg = {"distance": distance}
                 [client.write_message(json.dumps(msg)) for client in self.connections]
+                time.sleep(0.02)
 
         elif message == "distance_continuous_stop":
             self.distance_continuous = False
