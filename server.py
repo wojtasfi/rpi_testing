@@ -1,7 +1,6 @@
 import json
 from collections import namedtuple
 
-import RPi.GPIO as GPIO
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
@@ -15,8 +14,6 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 class SimpleWebSocket(tornado.websocket.WebSocketHandler):
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.cleanup()
     connections = set()
 
     handlerSupplier = HandlerSupplier.HandlersSupplier()
