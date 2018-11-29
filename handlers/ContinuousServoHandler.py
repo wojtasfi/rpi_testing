@@ -1,7 +1,8 @@
+from handlers.Handler import Handler
 from modules.servo import ServoService
 
 
-class ContinuousServoHandler:
+class ContinuousServoHandler(Handler):
     servo = ServoService()
 
     def handle(self, command, clients):
