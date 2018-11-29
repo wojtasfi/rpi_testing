@@ -20,7 +20,10 @@ class ContinuousDistanceHandler(Handler):
                 distance = self.distance_sensor.measure_distance()
                 msg = {"distance": distance}
                 [client.write_message(json.dumps(msg)) for client in clients]
-                time.sleep(0.02)
+
+                if not self.measure_on:
+                    pass
+                time.sleep(0.1)
 
         elif command == "stop":
             print("Stopping measuring distance")
