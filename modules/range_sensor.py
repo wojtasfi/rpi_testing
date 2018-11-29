@@ -6,15 +6,15 @@ import RPi.GPIO as GPIO
 class DistanceMeasureService:
 
     def __init__(self):
-        self.TRIG = 23
-        self.ECHO = 24
+        self.TRIG = 16
+        self.ECHO = 18
         self.ECHO_LOW = 0
         self.ECHO_HIGH = 1
         self.SOUND_SPEED_TWO_DIRECTIONS = 17150
         self.__setup_module()
 
     def __setup_module(self):
-        GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BOARD)
 
         print("Distance Measurement In Progress")
 
