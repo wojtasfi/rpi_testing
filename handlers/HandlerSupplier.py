@@ -9,6 +9,9 @@ class HandlersSupplier:
 
     def handle_command(self, message, clients):
 
+        print("Message to handle")
+        print(message)
+        print(message)
         command_name = message.command_name
         command = message.command
 
