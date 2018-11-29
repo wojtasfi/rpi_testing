@@ -14,9 +14,8 @@ class DistanceMeasureService:
         self.__setup_module()
 
     def __setup_module(self):
-        GPIO.setmode(GPIO.BOARD)
 
-        print("Distance Measurement In Progress")
+        print("Distance Measurement Setting Up")
 
         GPIO.setup(self.TRIG, GPIO.OUT)
         GPIO.setup(self.ECHO, GPIO.IN)
