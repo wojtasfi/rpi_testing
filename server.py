@@ -1,3 +1,5 @@
+import json
+
 import RPi.GPIO as GPIO
 import tornado.ioloop
 import tornado.web
@@ -23,7 +25,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
 
     # message = {command_name:"", command: ""}
     def on_message(self, message):
-        self.handlerSupplier.handle_command(message=message, clients=self.connections)
+        self.handlerSupplier.handle_command(message=json.parse(message), clients=self.connections)
 
     def on_close(self):
         print("Connection closed")
