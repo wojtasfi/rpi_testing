@@ -15,6 +15,7 @@ class ServoService:
         self.servo_pin.start(7.5)
 
     def move(self, dc):
+        print("Changing dc to " + dc)
         try:
             self.servo_pin.ChangeDutyCycle(dc)
 

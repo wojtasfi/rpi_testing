@@ -1,11 +1,12 @@
 from handlers.ContinuousDistanceHandler import ContinuousDistanceHandler
 from handlers.DistanceHandler import DistanceHandler
+from handlers.ServoHandler import ServoHandler
 
 
 class HandlersSupplier:
 
     def __init__(self):
-        self.handlers = [DistanceHandler(), ContinuousDistanceHandler()]
+        self.handlers = [DistanceHandler(), ContinuousDistanceHandler(), ServoHandler()]
 
     def handle_command(self, message, clients):
 
