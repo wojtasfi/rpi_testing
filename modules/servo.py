@@ -13,7 +13,7 @@ class ServoService:
         GPIO.setup(self.servo_pin_nr, GPIO.OUT)
         self.servo_pin = GPIO.PWM(self.servo_pin_nr, 50)
 
-        self.servo_pin.start(2.5)
+        self.servo_pin.start(0)
 
     def move(self, dc):
         try:

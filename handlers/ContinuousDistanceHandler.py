@@ -24,6 +24,7 @@ class ContinuousDistanceHandler(Handler):
 
         elif command == "stop":
             print("Stopping measuring distance")
+            self.measure_on = False
 
     def get_command_name(self):
         return "distance_continuous"
