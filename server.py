@@ -26,7 +26,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
     # message = {command_name:"", command: ""}
     def on_message(self, message):
         print(message)
-        print(json.loads(message))
+        print(json.parse(message))
         self.handlerSupplier.handle_command(message=message, clients=self.connections)
 
     def on_close(self):
