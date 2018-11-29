@@ -42,7 +42,6 @@ class DistanceMeasureService:
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * self.SOUND_SPEED_TWO_DIRECTIONS
         distance = round(distance, 2)
-        print("Distance:", distance, "cm")
         return distance
 
     # GPIO.cleanup()
