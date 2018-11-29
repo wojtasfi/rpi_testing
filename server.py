@@ -1,4 +1,5 @@
 import json
+from collections import namedtuple
 
 import RPi.GPIO as GPIO
 import tornado.ioloop
@@ -25,7 +26,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
 
     # message = {command_name:"", command: ""}
     def on_message(self, message):
-        self.handlerSupplier.handle_command(message=json.parse(message), clients=self.connections)
+        self.handlerSupplier.handle_command(message=self.convert(message), clients=self.connections)
 
     def on_close(self):
         print("Connection closed")
@@ -34,6 +35,11 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
     # todo not secure
     def check_origin(self, origin):
         return True
+
+    def convert(self, message):
+        msg_dict = json.loads(message)
+        n_tuple = namedtuple("msg", "command_name command")
+        return n_tuple(command_name=msg_dict["command_name"], command=msg_dict["command"])
 
 
 def make_app():
