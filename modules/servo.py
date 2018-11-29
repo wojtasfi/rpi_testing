@@ -6,6 +6,7 @@ class ServoService:
     def __init__(self):
         self.servo_pin = None
         self.servo_pin_nr = 12
+        self.__setup_module()
 
     def __setup_module(self):
         GPIO.setmode(GPIO.BOARD)
