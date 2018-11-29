@@ -13,10 +13,9 @@ class ServoService:
         GPIO.setup(self.servo_pin_nr, GPIO.OUT)
         self.servo_pin = GPIO.PWM(self.servo_pin_nr, 50)
 
-        self.servo_pin.start(7.5)
+        self.servo_pin.start(2.5)
 
     def move(self, dc):
-        print("Changing dc to " + dc)
         try:
             self.servo_pin.ChangeDutyCycle(dc)
 
