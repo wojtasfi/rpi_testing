@@ -17,7 +17,7 @@ class ServoService:
 
     def move(self, dc):
         try:
-            self.servo_pin.ChangeDutyCycle(dc)
+            self.servo_pin.ChangeDutyCycle(float(dc))
 
         except KeyboardInterrupt:
             self.servo_pin.stop()
