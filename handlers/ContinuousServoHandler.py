@@ -1,9 +1,9 @@
 from handlers.Handler import Handler
-from modules.servo import ServoService
+from modules.ContinuousServoService import ContinuousServoService
 
 
 class ContinuousServoHandler(Handler):
-    servo = ServoService()
+    servo = ContinuousServoService()
 
     def handle(self, command, clients):
         self.servo.move(command)
