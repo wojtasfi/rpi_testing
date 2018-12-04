@@ -12,17 +12,17 @@ class FlapsService:
         self.__setup_module()
         self.MAX_MOVE = 12
         self.contra_positions = {
-            1.0: 11.0,
-            2.0: 10.0,
-            3.0: 9.0,
-            4.0: 8.0,
-            5.0: 7.0,
-            6.0: 6.0,
-            7.0: 5.0,
-            8.0: 4.0,
-            9.0: 3.0,
-            10.0: 2.0,
-            11.0: 1.0
+            '1': 11.0,
+            '2': 10.0,
+            '3': 9.0,
+            '4': 8.0,
+            '5': 7.0,
+            '6': 6.0,
+            '7': 5.0,
+            '8': 4.0,
+            '9': 3.0,
+            '10': 2.0,
+            '11': 1.0
         }
 
     def __setup_module(self):
@@ -37,7 +37,7 @@ class FlapsService:
         self.left_servo_pin.start(self.initial_position)
 
     def move(self, flaps):
-        x = self.contra_positions.get(float(flaps["x"]))
+        x = float(self.contra_positions.get(flaps["x"]))
         y = float(flaps["y"])
 
         print(x)
