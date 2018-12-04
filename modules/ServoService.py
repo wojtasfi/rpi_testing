@@ -6,7 +6,7 @@ class ServoService:
     def __init__(self):
         self.servo_pin = None
         self.servo_pin_nr = 12
-        self.initial_position = 7.5
+        self.initial_position = 6
         self.__setup_module()
 
     def __setup_module(self):
