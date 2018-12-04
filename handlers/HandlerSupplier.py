@@ -2,13 +2,15 @@ from handlers.ContinuousDistanceHandler import ContinuousDistanceHandler
 from handlers.ContinuousServoHandler import ContinuousServoHandler
 from handlers.DistanceHandler import DistanceHandler
 from handlers.FlapsHandler import FlapsHandler
-from handlers.ServoHandler import ServoHandler
 
 
 class HandlersSupplier:
 
     def __init__(self):
-        self.handlers = [DistanceHandler(), ContinuousDistanceHandler(), ServoHandler(), ContinuousServoHandler(),
+        self.handlers = [DistanceHandler(),
+                         ContinuousDistanceHandler(),
+                         # ServoHandler(), for flaps testing
+                         ContinuousServoHandler(),
                          FlapsHandler()]
 
     def handle_command(self, message, clients):
