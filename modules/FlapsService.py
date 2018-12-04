@@ -38,11 +38,11 @@ class FlapsService:
         self.left_servo_pin.start(self.initial_position)
 
     def move(self, flaps):
-        x = flaps["x"]
-        y = flaps["y"]
+        x = int(flaps["x"])
+        y = int(flaps["y"])
 
-        dc_y = y / self.period
-        dc_x = x / -self.period
+        dc_y = y / int(self.period)
+        dc_x = x / -int(self.period)
 
         print(x)
         print(y)
