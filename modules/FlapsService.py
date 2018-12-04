@@ -11,6 +11,7 @@ class FlapsService:
         self.initial_position = 6
         self.__setup_module()
         self.MAX_MOVE = 12
+        self.period = 20
         self.contra_positions = {
             '1': 11.0,
             '2': 10.0,
@@ -37,14 +38,18 @@ class FlapsService:
         self.left_servo_pin.start(self.initial_position)
 
     def move(self, flaps):
-        x = float(self.contra_positions.get(flaps["x"]))
-        y = float(flaps["y"])
+        x = flaps["x"]
+        y = flaps["y"]
+
+        dc_y = y / self.period
+        dc_x = x / -self.period
 
         print(x)
         print(y)
         try:
-            self.right_servo_pin.ChangeDutyCycle(x)
-            self.left_servo_pin.ChangeDutyCycle(y)
+            self.right_servo_pin.ChangeDutyCycle(float(dc_x))
+            self.left_servo_pin.ChangeDutyCycle(float(dc_y))
 
         except KeyboardInterrupt:
             self.right_servo_pin.stop()
+            self.left_servo_pin.stop()
