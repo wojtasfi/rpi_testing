@@ -1,5 +1,3 @@
-import json
-
 import RPi.GPIO as GPIO
 
 
@@ -25,10 +23,8 @@ class FlapsService:
         self.left_servo_pin.start(self.initial_position)
 
     def move(self, flaps):
-
-        flaps_dict = json.loads(flaps)
-        x = flaps_dict["x"]
-        y = flaps_dict["y"]
+        x = flaps["x"]
+        y = flaps["y"]
 
         try:
             self.right_servo_pin.ChangeDutyCycle(float(x))
