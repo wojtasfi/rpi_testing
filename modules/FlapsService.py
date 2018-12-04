@@ -38,17 +38,12 @@ class FlapsService:
         self.left_servo_pin.start(self.initial_position)
 
     def move(self, flaps):
-        x = int(flaps["x"])
-        y = int(flaps["y"])
+        x = flaps["x"]
+        y = flaps["y"]
 
-        dc_y = y / int(self.period)
-        dc_x = x / -int(self.period)
-
-        print(x)
-        print(y)
         try:
-            self.right_servo_pin.ChangeDutyCycle(float(dc_x))
-            self.left_servo_pin.ChangeDutyCycle(float(dc_y))
+            self.right_servo_pin.ChangeDutyCycle(float(x))
+            self.left_servo_pin.ChangeDutyCycle(float(y))
 
         except KeyboardInterrupt:
             self.right_servo_pin.stop()
