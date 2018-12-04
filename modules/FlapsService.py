@@ -40,6 +40,8 @@ class FlapsService:
         x = self.contra_positions.get(float(flaps["x"]))
         y = float(flaps["y"])
 
+        print(x)
+        print(y)
         try:
             self.right_servo_pin.ChangeDutyCycle(x)
             self.left_servo_pin.ChangeDutyCycle(y)
