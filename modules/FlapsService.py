@@ -44,10 +44,10 @@ class FlapsService:
         print(x)
         print(y)
 
-        try:
-            self.right_servo_pin.ChangeDutyCycle(float(x))
-            self.left_servo_pin.ChangeDutyCycle(float(y))
-
-        except KeyboardInterrupt:
-            self.right_servo_pin.stop()
-            self.left_servo_pin.stop()
+        # try:
+        #     self.right_servo_pin.ChangeDutyCycle(float(x))
+        #     self.left_servo_pin.ChangeDutyCycle(float(y))
+        #
+        # except KeyboardInterrupt:
+        #     self.right_servo_pin.stop()
+        #     self.left_servo_pin.stop()
