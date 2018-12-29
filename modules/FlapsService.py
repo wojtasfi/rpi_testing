@@ -41,6 +41,9 @@ class FlapsService:
         x = flaps["x"]
         y = flaps["y"]
 
+        print(x)
+        print(y)
+
         try:
             self.right_servo_pin.ChangeDutyCycle(float(x))
             self.left_servo_pin.ChangeDutyCycle(float(y))
